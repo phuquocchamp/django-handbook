@@ -1,1 +1,9 @@
 ### DJANGO HANDBOOK BY PHUQUOCCHAMP.
+
+
+#### Type of APIs
+
+Tham khảo thêm :
+
+
+![1700364348634](image/README/1700364348634.png)
