@@ -9,6 +9,8 @@ Trong Django Rest Framework (DRF), serializer là một thành phần quan trọ
 
 Dưới đây là một ví dụ cơ bản về cách sử dụng serializer trong Django Rest Framework:
 
+#### 1. Serializers Example
+
 1. **Tạo một model:**
 
 ```python
@@ -75,3 +77,10 @@ urlpatterns = [
 ```
 
 Trên đây là một ví dụ đơn giản về cách sử dụng serializer trong Django Rest Framework. Serializer đóng vai trò quan trọng trong việc xử lý và biến đổi dữ liệu trong ứng dụng Django của bạn.
+
+
+#### 2. Type of Serializers
+
+##### 1. Serializers
+
+##### 2. ModelSerializers
