@@ -81,6 +81,93 @@ Trên đây là một ví dụ đơn giản về cách sử dụng serializer tr
 
 #### 2. Type of Serializers
 
-##### 1. Serializers
+##### 1. Serializer.Serializers
 
-##### 2. ModelSerializers
+**Serializer:**
+
+`Serializer` là một lớp chung cho phép bạn kiểm soát chặt chẽ hơn việc định nghĩa các trường và logic. Bạn sẽ cần mô tả cụ thể từng trường và xử lý logic kiểm tra dữ liệu.
+
+1. **Tạo Serializer:**
+
+```python
+# serializers.py
+from rest_framework import serializers
+
+class CustomSerializer(serializers.Serializer):
+    name = serializers.CharField(max_length=50)
+    age = serializers.IntegerField()
+
+    def validate_age(self, value):
+        if value < 0:
+            raise serializers.ValidationError("Age must be a positive number.")
+        return value
+```
+
+2. **Sử dụng Serializer trong views:**
+
+```python
+# views.py
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from .serializers import CustomSerializer
+
+class CustomAPIView(APIView):
+    def post(self, request, *args, **kwargs):
+        serializer = CustomSerializer(data=request.data)
+        if serializer.is_valid():
+            # Xử lý logic khi dữ liệu hợp lệ
+            return Response(serializer.validated_data, status=status.HTTP_201_CREATED)
+        else:
+            # Trả về lỗi nếu dữ liệu không hợp lệ
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+```
+
+Trong `CustomSerializer`, bạn phải mô tả từng trường và có thể xử lý logic kiểm tra dữ liệu trong các phương thức như `validate_age`.
+
+##### 2. serializers.ModelSerializers
+
+
+**ModelSerializer:**
+
+`ModelSerializer` là một lớp con của `Serializer` được tối ưu hóa cho việc tương tác với các model trong Django. Nó giảm bớt công việc lặp lại khi bạn chỉ cần tạo một serializer dựa trên model.
+
+1. **Tạo Model:**
+
+```python
+# models.py
+from django.db import models
+
+class Book(models.Model):
+    title = models.CharField(max_length=100)
+    author = models.CharField(max_length=50)
+    publication_date = models.DateField()
+```
+
+2. **Tạo ModelSerializer:**
+
+```python
+# serializers.py
+from rest_framework import serializers
+from .models import Book
+
+class BookSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Book
+        fields = ['id', 'title', 'author', 'publication_date']
+```
+
+3. **Sử dụng ModelSerializer trong views:**
+
+```python
+# views.py
+from rest_framework.generics import ListAPIView
+from .models import Book
+from .serializers import BookSerializer
+
+class BookListView(ListAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+```
+
+Với `ModelSerializer`, bạn không cần phải tự định nghĩa từng trường, nó tự động tạo các trường dựa trên model.
