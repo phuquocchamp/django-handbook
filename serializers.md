@@ -1,4 +1,3 @@
-
 ### SERIALIZERS TRONG DJANGO DRF
 
 ![1700447059587](image/README/1700447059587.png)
@@ -78,10 +77,13 @@ urlpatterns = [
 
 Trên đây là một ví dụ đơn giản về cách sử dụng serializer trong Django Rest Framework. Serializer đóng vai trò quan trọng trong việc xử lý và biến đổi dữ liệu trong ứng dụng Django của bạn.
 
-
 #### 2. Type of Serializers
 
 ##### 1. Serializer.Serializers
+
+Tham khảo:
+
+- [Serializers vs ModelSerializers](https://www.youtube.com/watch?v=3-w6TNbGP3Y)
 
 **Serializer:**
 
@@ -127,7 +129,6 @@ Trong `CustomSerializer`, bạn phải mô tả từng trường và có thể x
 
 ##### 2. serializers.ModelSerializers
 
-
 **ModelSerializer:**
 
 `ModelSerializer` là một lớp con của `Serializer` được tối ưu hóa cho việc tương tác với các model trong Django. Nó giảm bớt công việc lặp lại khi bạn chỉ cần tạo một serializer dựa trên model.
@@ -171,3 +172,37 @@ class BookListView(ListAPIView):
 ```
 
 Với `ModelSerializer`, bạn không cần phải tự định nghĩa từng trường, nó tự động tạo các trường dựa trên model.
+
+##### 3. Sự khác nhau và các sử dụng ?
+
+`Serializers` và `ModelSerializers` là hai loại serializer trong Django Rest Framework (DRF), và lựa chọn giữa chúng phụ thuộc vào nhu cầu cụ thể của bạn.
+
+1. **Serializers:**
+
+   - **Khi sử dụng với dữ liệu không phải là model:** Sử dụng `Serializers` khi bạn đang làm việc với dữ liệu không phải là model Django. ***Ví dụ, khi bạn có dữ liệu từ nguồn không phải là cơ sở dữ liệu hoặc từ một nguồn dữ liệu khác.***
+   - **Khi cần kiểm soát linh hoạt hơn đối với quá trình chuyển đổi dữ liệu:** `Serializers` cho phép bạn kiểm soát linh hoạt hơn quá trình chuyển đổi dữ liệu, đặc biệt là khi bạn muốn thêm logic xử lý đặc biệt.
+   - **Khi muốn tùy chỉnh cách dữ liệu được trả về:** Nếu bạn muốn tùy chỉnh cách dữ liệu được trả về trong response, bạn có thể sử dụng `Serializers` để tạo ra một định dạng dữ liệu tuỳ chỉnh.
+
+   ```python
+   from rest_framework import serializers
+
+   class MySerializer(serializers.Serializer):
+       field1 = serializers.CharField()
+       field2 = serializers.IntegerField()
+   ```
+2. **ModelSerializers:**
+
+   - **Khi làm việc với model Django:** Sử dụng `ModelSerializers` khi bạn làm việc với các model Django. `ModelSerializers` tự động tạo ra một serializer dựa trên các trường của model, giúp giảm bớt code lặp và tăng khả năng bảo trì.
+   - **Khi muốn thao tác CRUD cơ bản với model:** `ModelSerializers` cung cấp các phương thức CRUD cơ bản như tạo, đọc, cập nhật và xóa dữ liệu mà không cần triển khai lại nhiều mã.
+   - **Khi muốn đơn giản hóa code:** `ModelSerializers` giúp đơn giản hóa quá trình tạo serializer cho các model bằng cách tự động xác định trường và các quy tắc chuyển đổi.
+
+   ```python
+   from rest_framework import serializers
+   from .models import MyModel
+
+   class MyModelSerializer(serializers.ModelSerializer):
+       class Meta:
+           model = MyModel
+           fields = '__all__'
+   ```
+   Trong nhiều trường hợp, bạn có thể bắt đầu với `ModelSerializers` vì chúng giúp giảm bớt công việc lập trình và giúp bạn nhanh chóng tạo ra một API CRUD hoạt động cho model của mình. Tuy nhiên, khi bạn cần linh hoạt lớn hơn và muốn kiểm soát đầy đủ hơn quá trình chuyển đổi dữ liệu, bạn có thể quay trở lại sử dụng `Serializers`.
