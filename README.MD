@@ -1,5 +1,8 @@
 ### DJANGO HANDBOOK BY PHUQUOCCHAMP.
 
+
+### Basic Topic
+
 #### [1. Type of APIs]()
 
 Tham khảo thêm :
@@ -15,3 +18,9 @@ Tham khảo thêm :
 #### [5. Status Code](./status_code.md)
 
 #### [6. Validation ](./validation.md)
+
+
+
+
+### Advantaged Topic
+
