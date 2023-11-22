@@ -10,4 +10,8 @@ Tham khảo thêm :
 
 #### [3. Views](./views.md)
 
-#### [4. Response & HttpResponse](./Response_vs_HttpResponse.md)
+#### [4. Response &amp; HttpResponse](./Response_vs_HttpResponse.md)
+
+#### [5. Status Code](./status_code.md)
+
+#### [6. Validation ](./validation.md)
