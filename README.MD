@@ -1,6 +1,5 @@
 ### DJANGO HANDBOOK BY PHUQUOCCHAMP.
 
-
 ### Basic Topic
 
 #### [1. Type of APIs]()
@@ -19,8 +18,8 @@ Tham khảo thêm :
 
 #### [6. Validation ](./validation.md)
 
-
-
+#### [7. Serializer Fields &amp; Core Argument]()
 
 ### Advantaged Topic
 
+#### [DRF](./drf.md)
