@@ -32,3 +32,47 @@ Response(data, status=None, template_name = None, headers=None, content_type=Non
 
 - Serializer cho phép chuyển các dữ liệu phức tạp như `querysets` hoặc thể hiện của model thành các kiểu dữ liệu JSON, XML hay một content type nào khác.
 - Nó cũng cung cấp khẳ năng deserializer để chuyển dữ liệu đã được chuyển về kiểu dữ liêu phức tạp ban đầu sau khi đã kiêm tra (validate).
+- Phương thức validate() dùng để kiểm tra chung cho nhiêu nhieuefturonwgf tỏng serializer, phương thức có một đối số duy nhất là từ điển chức giá trị các trường.
+- Phương thức validate_<field_name> sẽ trả về gía trị kiểm tra cửa trường tương ứng hoặc ném ngoại lệ serializers.ValidationError.
+- Chú ý : Nếu <field_name> được khai báo required là false thì validate không được thực hiện.
+- Lớp serializer cung cấp các phương thức chung để xử lí output cho response.
+- Lớp ModelSerializer giúp nhanh chóng tọ lớp Serializer với các trường tương ứng với các trường của Model. Khi đó :
+  - tự tạo các filed giống model.
+  - Tự tạo validator cho serializer.
+  - Bao gồm các phương thức mặc định như save, update, create
+
+##### Các thuộc tính trong Meta Class:
+
+- model : lớp model liên kết cho serializer.
+- fileds : chỉ định các fields sẽ được serialize, thiết lập là `__all__`  để serialize tất cả các field.
+- read_only_fields: chỉ định các field chỉ đọc.
+- exclude : chỉ định các field khoog serialize.
+- extra_kwargs: bổ sung mộ số thông tin ràng buộc trên fileds.
+- deep:
+
+##### View trong django
+
+![1701162812081](image/drf/1701162812081.png)
+
+
+###### GeneticView 
+
+- GeneticView giúp phát triển nhanh APIView
+- GeneticAPIView kế thừa APIView, bổ sung thêm một số hành vi chuẩn như list, detail
+- queryset: trẳ về các đối tượng từ view, Queryset sẽ được thực thi một lần khi nó được sử dụng (evaluated) và nó sẽ được lưu đêm (cached) cho các lần truy vấn sau. Nếu có ghi đề phương thức get_query_set() thì kết quả sẽ ưu tiên cao hơn.
+- serializer_class: lớp serializer được sử dụng để validate, deserialize input và serialize output. Ta có thể ghi đề phương thức get_serializer_class() thay thế
+- lookup_field: các trường
+
+
+
+![1701177644958](image/drf/1701177644958.png)
+
+
+###### Các lớp Mixins
+
+![1701177747960](image/drf/1701177747960.png)
+
+
+###### ViewSet
+
+![1701177784710](image/drf/1701177784710.png)
