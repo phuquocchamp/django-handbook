@@ -23,3 +23,7 @@ Tham khảo thêm :
 ### Advantaged Topic
 
 #### [DRF](./drf.md)
+
+#### [DJANGO ORM](./django_orm.md)
+
+#### [CSRF TOKEN](./csrf_token.md)
